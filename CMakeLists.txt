@@ -1,0 +1,145 @@
+# Project Info
+cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
+cmake_policy(VERSION 3.6)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+project(CrossShader
+        VERSION 1.0.0.0
+        LANGUAGES C CXX
+)
+enable_language(C)
+enable_language(CXX)
+
+# =============================================================
+
+# CMake Settings
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set(CMAKE_SUPPRESS_REGENERATION true)
+set(DCMAKE_GENERATOR_PLATFORM "x64")
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin)
+if(NOT CMAKE_DEBUG_POSTFIX)
+  set(CMAKE_DEBUG_POSTFIX d)
+endif()
+
+# =============================================================
+
+# Options
+
+set(XGFX_API OPENGL CACHE STRING "Which graphics API to use, defaults to AUTO, can be NOOP, VULKAN, OPENGL, DIRECTX12, or METAL.")
+set_property(
+    CACHE
+    XGFX_API PROPERTY
+    STRINGS NOOP VULKAN OPENGL DIRECTX12 METAL
+)
+
+# =============================================================
+
+# Core Dependencies
+
+# CrossWindow
+add_subdirectory(external/glslang)
+
+# CrossGraphics
+add_subdirectory(external/spirv-cross)
+set_property(TARGET spirv-cross spirv-cross-core spirv-cross-cpp spirv-cross-glsl spirv-cross-hlsl spirv-cross-msl spirv-cross-reflect spirv-cross-util PROPERTY FOLDER "spirv")
+
+
+# =============================================================
+
+# Sources
+
+file(GLOB_RECURSE FILE_SOURCES RELATIVE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.mm
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h
+)
+
+# Solution Filters
+foreach(source IN LISTS FILE_SOURCES)
+    get_filename_component(source_path "${source}" PATH)
+    string(REPLACE "/" "\\" source_path_msvc "${source_path}")
+    string(REPLACE "src" "" source_path_final "${source_path_msvc}")
+    source_group("${source_path_final}" FILES "${source}")
+endforeach()
+
+# =============================================================
+
+# Finalize App
+
+add_executable(
+    ${PROJECT_NAME}
+    "${FILE_SOURCES}"
+)
+
+# =============================================================
+
+# Finish Dependencies
+
+target_link_libraries(
+    ${PROJECT_NAME}
+    glslang
+    #glslangValidator
+    #spirv-remap
+    glslang-default-resource-limits
+    OGLCompiler
+    OSDependent
+    SPIRV
+    SPVRemapper
+    HLSL
+    #spirv-cross
+    spirv-cross-core
+    spirv-cross-cpp
+    spirv-cross-glsl
+    spirv-cross-hlsl
+    spirv-cross-msl
+    spirv-cross-reflect
+    spirv-cross-util
+)
+
+add_dependencies(
+    ${PROJECT_NAME}
+    glslang
+    #glslangValidator
+    #spirv-remap
+    glslang-default-resource-limits
+    OGLCompiler
+    OSDependent
+    SPIRV
+    SPVRemapper
+    HLSL
+    #spirv-cross
+    spirv-cross-core
+    spirv-cross-cpp
+    spirv-cross-glsl
+    spirv-cross-hlsl
+    spirv-cross-msl
+    spirv-cross-reflect
+    spirv-cross-util
+)
+
+# =============================================================
+
+# Finish Settings
+
+# Change output dir to bin
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../..
+)
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+  # Change working directory to top directory to access the `assets/` folder
+  set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/..)
+
+  # Change startup project to this project
+  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+endif()
