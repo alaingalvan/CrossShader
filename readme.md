@@ -8,7 +8,7 @@
 
 > 🚧 Currently a Work in Progress! 🚧
 
-A cross compiler for shader languages. Convert between GLSL, HLSL, Metal Shader Language, or older versions of GLSL.
+A cross compiler for shader languages. Convert between SPIR-V, GLSL, HLSL, Metal Shader Language, or older versions of GLSL. It works as a wrapper to [glslang](https://github.com/KhronosGroup/glslang) and [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross/).
 
 ## Installation
 
@@ -47,7 +47,7 @@ target_link_libraries(
 ### Node.js
 
 ```js
-import compiler from 'crossshader';
+import compiler from 'cross-shader';
 
 compiler.run('input.glsl', '/my/output/dir');
 ```
@@ -116,9 +116,19 @@ Whenever you add new files to the project, run `cmake ..` from your solution/pro
 
 ### WebAssembly
 
+Note, if you're on Windows, I would recommend using the Windows [Linux Subsystem](https://www.microsoft.com/store/productId/9NBLGGH4MSV6).
+
+First, install the latest version of Emscripten via the [Emscripten SDK](https://kripken.github.io/emscripten-site/docs/getting_started/downloads.html). Make sure to add it's Emscripten installation to your `PATH`, then:
+
 ```bash
-emcmake cmake ..
-cmake --build .
+# Possible dependencies you might need:
+sudo apt-get update
+sudo apt-get install cmake build-essential llvm
+
+# Then run the following:
+mkdir wasm
+emmake cmake ..
+emmake make CrossShader -j
 ```
 
 ## License

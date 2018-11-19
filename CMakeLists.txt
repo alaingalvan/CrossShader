@@ -30,6 +30,16 @@ if(NOT CMAKE_DEBUG_POSTFIX)
   set(CMAKE_DEBUG_POSTFIX d)
 endif()
 
+# Emscripten Settings
+if(CMAKE_CXX_COMPILER MATCHES "/em\\+\\+(-[a-zA-Z0-9.])?$")
+  message(" * C++ compiler: Emscripten")
+  set(CMAKE_CXX_COMPILER_ID "Emscripten")
+  add_definitions("-std=c++14")
+else()
+  message(" * C++ cimpiler: ${CMAKE_CXX_COMPILER_ID}")
+endif()
+
+
 # =============================================================
 
 # Options
@@ -126,20 +136,3 @@ add_dependencies(
     spirv-cross-reflect
     spirv-cross-util
 )
-
-# =============================================================
-
-# Finish Settings
-
-# Change output dir to bin
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../..
-)
-
-if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-  # Change working directory to top directory to access the `assets/` folder
-  set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/..)
-
-  # Change startup project to this project
-  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
-endif()
