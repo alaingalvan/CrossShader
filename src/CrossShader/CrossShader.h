@@ -4,6 +4,8 @@
 #include "spirv.hpp"
 #include "spirv_glsl.hpp"
 
+namespace xsdr
+{
 enum ShaderFormat
 {
     GLSL,
@@ -17,10 +19,11 @@ typedef ShaderFormat lol[ShaderFormatMax];
 
 struct Options
 {
-	// OpenGL Options
+    // OpenGL Options
     unsigned glslVersion;
-	bool es;
+    bool es;
 };
 
 const char* compile(const char* source, ShaderFormat inputFormat,
-              ShaderFormat outputFormat, Options options);
+                    ShaderFormat outputFormat, Options options);
+}

@@ -49,7 +49,23 @@ target_link_libraries(
 
 ## Usage
 
+This library exposes a single function: `compile(const char* inputString, xsdr::ShaderFormat inputFormat, xsdr::ShaderFormat outputFormat);`, and returns the output string, or throws an exception if there's an error compiling, with the error message exposed in the exception object.
+
 ### Node.js Example
+
+```ts
+// Just to clarify TypeScript definitions:
+
+enum ShaderFormat {
+    GLSL,
+    HLSL,
+    MSL,
+    SPIRV,
+    ShaderFormatMax
+}
+
+type compile = (inputString: string, inputFormat: ShaderFormat, outputFormat: ShaderFormat) => string;
+```
 
 ```js
 import compile, {ShaderFormat} from 'cross-shader';
@@ -118,7 +134,7 @@ cmake .. -A x64
 # 🍎 To build your XCode project on Mac OS
 cmake .. -G Xcode
 
-# 🐧 To build your .make file on Linux
+# 🐧 To build your MakeFile on Linux
 cmake ..
 
 # 🔨 Build on any platform:

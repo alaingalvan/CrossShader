@@ -29,18 +29,24 @@ int main()
                             set * 16 + binding);
     }
 
-    // Set some options.
-    spirv_cross::CompilerGLSL::Options options;
-    options.version = 310;
-    options.es = true;
-    glsl.set_options(options);
-
-    // Compile to GLSL, ready to give to GL driver.
-    std::string source = glsl.compile();
 }
 
+namespace xsdr
+{
 const char* compile(const char* source, ShaderFormat inputFormat,
                     ShaderFormat outputFormat, Options options)
 {
-    return nullptr;
+    // Read SPIR-V from disk or similar.
+    spirv_cross::CompilerGLSL glsl(nullptr, 0);
+
+    // Set some options.
+    spirv_cross::CompilerGLSL::Options scoptions;
+    scoptions.version = options.glslVersion;
+    scoptions.es = options.es;
+    glsl.set_options(scoptions);
+
+    // Compile to GLSL, ready to give to GL driver.
+    std::string source = glsl.compile();
+    return source;
+}
 }
