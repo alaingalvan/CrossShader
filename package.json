@@ -31,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/alaingalvan/crossshader/issues"
   },
-  "homepage": "https://github.com/alaingalvan/crossshader#readme"
+  "homepage": "https://github.com/alaingalvan/crossshader#readme",
+  "devDependencies": {
+    "ava": "^0.25.0"
+  }
 }

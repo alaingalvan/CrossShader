@@ -31,17 +31,6 @@ endif()
 
 # =============================================================
 
-# Options
-
-set(XGFX_API OPENGL CACHE STRING "Which graphics API to use, defaults to AUTO, can be NOOP, VULKAN, OPENGL, DIRECTX12, or METAL.")
-set_property(
-    CACHE
-    XGFX_API PROPERTY
-    STRINGS NOOP VULKAN OPENGL DIRECTX12 METAL
-)
-
-# =============================================================
-
 # Core Dependencies
 
 # GLSLang

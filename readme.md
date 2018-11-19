@@ -5,6 +5,7 @@
 [![License][license-img]][license-url]
 [![Travis Tests][travis-img]][travis-url]
 [![Coverage Tests][codecov-img]][codecov-url]
+[![devDependency Status][david-dev-img]][david-dev-url]
 
 > 🚧 Currently a Work in Progress! 🚧
 
@@ -18,7 +19,9 @@ A cross compiler for shader languages. Convert between SPIR-V, GLSL, HLSL, Metal
 npm i cross-shader
 ```
 
-CrossShader will be available as as an npm module that you can include in your project as a dependency. This will require Node 8.x or above, or [a browser that supports WebAssembly](https://caniuse.com/#feat=wasm).
+Note the use of `dash-case` vs `CamelCase` for the npm module name, this is to follow the JavaScript community's focus on making names that fit well with browser URLs.
+
+Using this module will require Node 8.x or above, or [a browser that supports WebAssembly](https://caniuse.com/#feat=wasm).
 
 ### C++ Installation
 
@@ -46,8 +49,6 @@ target_link_libraries(
 
 ### Node.js Example
 
-Note the use of dash-case vs CamelCase for the npm module, this is to follow JavaScript module naming conventions.
-
 ```js
 import compile, {ShaderFormat} from 'cross-shader';
 
@@ -55,6 +56,7 @@ const options = {
   es: false,
   glslVersion: 450
 };
+
 let outputString = compile(inputString, ShaderFormat.GLSL, ShaderFormat.HLSL, options);
 ```
 

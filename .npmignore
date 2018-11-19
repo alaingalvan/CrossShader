@@ -16,3 +16,5 @@ webpack.*.js
 .vscode
 example
 license.md
+
+!docs/cover.svg
