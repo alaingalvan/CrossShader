@@ -18,7 +18,7 @@ typedef ShaderFormat lol[ShaderFormatMax];
 struct Options
 {
 	// OpenGL Options
-    const char* glslVersion;
+    unsigned glslVersion;
 	bool es;
 };
 

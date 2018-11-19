@@ -1,7 +1,6 @@
 # Project Info
 cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
 cmake_policy(VERSION 3.6)
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 project(CrossShader
         VERSION 1.0.0.0
         LANGUAGES C CXX
@@ -30,16 +29,6 @@ if(NOT CMAKE_DEBUG_POSTFIX)
   set(CMAKE_DEBUG_POSTFIX d)
 endif()
 
-# Emscripten Settings
-if(CMAKE_CXX_COMPILER MATCHES "/em\\+\\+(-[a-zA-Z0-9.])?$")
-  message(" * C++ compiler: Emscripten")
-  set(CMAKE_CXX_COMPILER_ID "Emscripten")
-  add_definitions("-std=c++14")
-else()
-  message(" * C++ cimpiler: ${CMAKE_CXX_COMPILER_ID}")
-endif()
-
-
 # =============================================================
 
 # Options
@@ -55,10 +44,10 @@ set_property(
 
 # Core Dependencies
 
-# CrossWindow
+# GLSLang
 add_subdirectory(external/glslang)
 
-# CrossGraphics
+# SPRIV-Cross
 add_subdirectory(external/spirv-cross)
 set_property(TARGET spirv-cross spirv-cross-core spirv-cross-cpp spirv-cross-glsl spirv-cross-hlsl spirv-cross-msl spirv-cross-reflect spirv-cross-util PROPERTY FOLDER "spirv")
 

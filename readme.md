@@ -12,7 +12,7 @@ A cross compiler for shader languages. Convert between SPIR-V, GLSL, HLSL, Metal
 
 ## Installation
 
-### Node.js
+### Node.js Installation
 
 ```bash
 npm i cross-shader
@@ -20,7 +20,7 @@ npm i cross-shader
 
 CrossShader will be available as as an npm module that you can include in your project as a dependency. This will require Node 8.x or above, or [a browser that supports WebAssembly](https://caniuse.com/#feat=wasm).
 
-### C++
+### C++ Installation
 
 First add the repo as a submodule in your dependencies folder such as `external/`:
 
@@ -44,23 +44,32 @@ target_link_libraries(
 
 ## Usage
 
-### Node.js
+### Node.js Example
+
+Note the use of dash-case vs CamelCase for the npm module, this is to follow JavaScript module naming conventions.
 
 ```js
-import compiler from 'cross-shader';
+import compile, {ShaderFormat} from 'cross-shader';
 
-compiler.run('input.glsl', '/my/output/dir');
+const options = {
+  es: false,
+  glslVersion: 450
+};
+let outputString = compile(inputString, ShaderFormat.GLSL, ShaderFormat.HLSL, options);
 ```
 
-### C++
+### C++ Example
 
 ```cpp
 #include "CrossShader/CrossShader.h"
 
 void main(int argc, const char** argv)
 {
-  xsdr::Compiler compiler;
-  compiler.run('input.glsl', '/my/output/dir');
+  xsdr::Options options;
+  options.es = false;
+  options.glslVersion = 450;
+
+  const char* outputString = xsdr::compile(inputString, xsdr::ShaderFormat::GLSL, xsdr::ShaderFormat::HLSL, options);
 }
 ```
 
@@ -100,13 +109,13 @@ mkdir build
 cd build
 
 # 🖼️ To build your Visual Studio solution on Windows x64
-cmake .. -A x64 -DXSDR_TESTS=ON
+cmake .. -A x64
 
 # 🍎 To build your XCode project on Mac OS
-cmake .. -G Xcode -DXSDR_TESTS=ON
+cmake .. -G Xcode
 
 # 🐧 To build your .make file on Linux
-cmake .. -DXSDR_TESTS=ON
+cmake ..
 
 # 🔨 Build on any platform:
 cmake --build .
@@ -116,7 +125,7 @@ Whenever you add new files to the project, run `cmake ..` from your solution/pro
 
 ### WebAssembly
 
-Note, if you're on Windows, I would recommend using the Windows [Linux Subsystem](https://www.microsoft.com/store/productId/9NBLGGH4MSV6).
+Note, if you're on Windows, I would highly recommend using the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-the-windows-subsystem-for-linux).
 
 First, install the latest version of Emscripten via the [Emscripten SDK](https://kripken.github.io/emscripten-site/docs/getting_started/downloads.html). Make sure to add it's Emscripten installation to your `PATH`, then:
 
@@ -127,7 +136,7 @@ sudo apt-get install cmake build-essential llvm
 
 # Then run the following:
 mkdir wasm
-emmake cmake ..
+emcmake cmake ..
 emmake make CrossShader -j
 ```
 

@@ -2,16 +2,29 @@
   "name": "crossshader",
   "version": "0.1.0",
   "description": "A cross compiler for shader languages. Convert between GLSL, HLSL, Metal Shader Language, or older versions of GLSL.",
-  "main": "crossshader.wasm",
+  "main": "bin/CrossShader.wasm",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cd wasm & emmake make CrossShader -j",
+    "start": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alaingalvan/crossshader.git"
   },
   "keywords": [
-    "glsl"
+    "glsl",
+    "hlsl",
+    "msl",
+    "metal",
+    "opengl",
+    "webgl",
+    "directx",
+    "vulkan",
+    "shader",
+    "transpiler",
+    "compiler",
+    "transpile",
+    "graphics"
   ],
   "author": "Alain Galvan",
   "license": "MIT",
