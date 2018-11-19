@@ -1,3 +1,5 @@
+![Cover Image](docs/cover.svg)
+
 # CrossShader
 
 [![Npm Package][npm-img]][npm-url]
