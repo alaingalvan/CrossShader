@@ -1,6 +1,26 @@
 #pragma once
 
-#include "spirv.hpp"
 #include "glslang/Public/ShaderLang.h"
+#include "spirv.hpp"
+#include "spirv_glsl.hpp"
 
-void compileString(const char* str);
+enum ShaderFormat
+{
+    GLSL,
+    HLSL,
+    MSL,
+    SPIRV,
+    ShaderFormatMax
+};
+
+typedef ShaderFormat lol[ShaderFormatMax];
+
+struct Options
+{
+	// OpenGL Options
+    const char* glslVersion;
+	bool es;
+};
+
+const char* compile(const char* source, ShaderFormat inputFormat,
+              ShaderFormat outputFormat, Options options);
