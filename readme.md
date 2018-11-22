@@ -1,4 +1,4 @@
-![Cover Image](docs/cover.svg)
+![Cover Image](docs/cover.jpg)
 
 # CrossShader
 
@@ -18,7 +18,7 @@ A cross compiler for shader languages. Convert between SPIR-V, GLSL, HLSL, Metal
 ### Node.js Installation
 
 ```bash
-npm i cross-shader
+npm i cross-shader -S
 ```
 
 Note the use of `dash-case` vs `CamelCase` for the npm module name, this is to follow the JavaScript community's focus on making names that fit well with browser URLs.
@@ -156,6 +156,7 @@ sudo apt-get install cmake build-essential llvm
 
 # Then run the following:
 mkdir wasm
+cd wasm
 emcmake cmake ..
 emmake make CrossShader -j
 ```

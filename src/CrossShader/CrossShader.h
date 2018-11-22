@@ -15,8 +15,6 @@ enum ShaderFormat
     ShaderFormatMax
 };
 
-typedef ShaderFormat lol[ShaderFormatMax];
-
 struct Options
 {
     // OpenGL Options
