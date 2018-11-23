@@ -4,6 +4,8 @@
 #include "spirv.hpp"
 #include "spirv_glsl.hpp"
 
+#include <string>
+
 namespace xsdr
 {
 enum ShaderFormat
@@ -22,6 +24,18 @@ struct Options
     bool es;
 };
 
-const char* compile(const char* source, ShaderFormat inputFormat,
-                    ShaderFormat outputFormat, Options options);
+class Compiler
+{
+public:
+
+    std::string compile(std::string& source, ShaderFormat inputFormat,
+                        ShaderFormat outputFormat, Options options);
+
+protected:
+    spirv_cross::CompilerGLSL glsl;
+    spirv_cross::CompilerHLSL hlsl;
+    spirv_cross::CompilerMSL msl;
+    ShHandle spirv;
+}
+
 }

@@ -33,20 +33,39 @@ int main()
 
 namespace xsdr
 {
-const char* compile(const char* source, ShaderFormat inputFormat,
+std::string Compiler::compile(std::string& source, ShaderFormat inputFormat,
                     ShaderFormat outputFormat, Options options)
 {
-    // Read SPIR-V from disk or similar.
-    spirv_cross::CompilerGLSL glsl(nullptr, 0);
+    if (inputFormat == ShaderFormat::GLSL)
+    {
+        ShHandle spirvCompiler = ShConstructCompiler(FindLanguage("stdin"), Options);
+        ShCompile(spirvCompiler, &shaderString, 1, nullptr, EShOptNone, &Resources, Options, (Options & EOptionDefaultDesktop) ? 110 : 100, false, messages);
+    }
 
-    // Set some options.
-    spirv_cross::CompilerGLSL::Options scoptions;
-    scoptions.version = options.glslVersion;
-    scoptions.es = options.es;
-    glsl.set_options(scoptions);
+    if (outputFormat == ShaderFormat::GLSL)
+    {
+        spirv_cross::CompilerGLSL glsl(spirv);
+        spirv_cross::CompilerGLSL::Options scoptions;
+        scoptions.version = options.glslVersion;
+        scoptions.es = options.es;
+        glsl.set_options(scoptions);
+        return glsl.compile();
+    }
+    else if (outputFormat == ShaderFormat::HLSL)
+    {
+        spirv_cross::CompilerHLSL hlsl(spirv);
+        return hlsl.compile();
+    }
+    else if (outputFormat == ShaderFormat::MSL)
+    {
+        spirv_cross::CompilerMSL msl(spirv);
+        return msl.compile();
+    }
+    else if (outputFormat == ShaderFormat::SPIRV)
+    {
+        return spirv;
+    }
 
-    // Compile to GLSL, ready to give to GL driver.
-    std::string source = glsl.compile();
-    return source;
+    return "";
 }
 }
