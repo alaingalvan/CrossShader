@@ -3,48 +3,72 @@
 #include <utility>
 #include <vector>
 
-int main()
-{
-    // Read SPIR-V from disk or similar.
-    spirv_cross::CompilerGLSL glsl(nullptr, 0);
-
-    // The SPIR-V is now parsed, and we can perform reflection on it.
-    spirv_cross::ShaderResources resources = glsl.get_shader_resources();
-
-    // Get all sampled images in the shader.
-    for (auto& resource : resources.sampled_images)
-    {
-        unsigned set =
-            glsl.get_decoration(resource.id, spv::DecorationDescriptorSet);
-        unsigned binding =
-            glsl.get_decoration(resource.id, spv::DecorationBinding);
-        printf("Image %s at set = %u, binding = %u\n", resource.name.c_str(),
-               set, binding);
-
-        // Modify the decoration to prepare it for GLSL.
-        glsl.unset_decoration(resource.id, spv::DecorationDescriptorSet);
-
-        // Some arbitrary remapping if we want.
-        glsl.set_decoration(resource.id, spv::DecorationBinding,
-                            set * 16 + binding);
-    }
-
-}
-
 namespace xsdr
 {
-std::string Compiler::compile(std::string& source, ShaderFormat inputFormat,
+std::string compile(std::string& source, ShaderFormat inputFormat,
                     ShaderFormat outputFormat, Options options)
 {
+    std::vector<uint32_t> spirvSource;
+
+	if (inputFormat == outputFormat)
+	{
+        return source;
+	}
+
+    if (inputFormat == ShaderFormat::MSL)
+    {
+        // Metal Shader Language is not supported as an input format (maybe this
+        // should be typesafe, but it probably will be supported in the future).
+        return "";
+    }
+
     if (inputFormat == ShaderFormat::GLSL)
     {
-        ShHandle spirvCompiler = ShConstructCompiler(FindLanguage("stdin"), Options);
-        ShCompile(spirvCompiler, &shaderString, 1, nullptr, EShOptNone, &Resources, Options, (Options & EOptionDefaultDesktop) ? 110 : 100, false, messages);
+        bool es = false;
+        const char* strs = source.c_str();
+
+        glslang::InitializeProcess();
+        // std::vector<glslang::ShaderCompUnit> compUnits;
+
+        glslang::TShader vert(EShLangVertex);
+        vert.setStrings(&strs, 1);
+        vert.setSourceEntryPoint("main");
+
+        // if the lang is hlsl
+        if (inputFormat == ShaderFormat::HLSL)
+        {
+            vert.setEnvTargetHlslFunctionality1();
+            // vert.parse()
+        }
+
+        glslang::TProgram program;
+        program.addShader(&vert);
+        program.link(EShMsgDefault);
+        const char* infoLog = program.getInfoLog();
+
+        glslang::SpvOptions spvOptions;
+        spv::SpvBuildLogger logger;
+
+        glslang::TIntermediate* inter = program.getIntermediate(EShLangVertex);
+
+        glslang::GlslangToSpv(*inter, spirvSource, &spvOptions);
+
+		// not sure of the scope of this library, but writing files is probably out of it, returning the spirSource is probably good enough...
+        glslang::OutputSpvBin(spirvSource, "basename");
+
+		// maybe we want spirv disassembly, though shader playground is probably good enough for that, we should just stick with cross compilation...
+        spv::Disassemble(std::cout, spirvSource);
+
+		// maybe we should also bundle a cli tool for this library, though that would probably not be as useful as the cli tools of regular old spirv-cross and glslang, could be easier though...
+
+        glslang::FinalizeProcess();
     }
+
+	// Output data
 
     if (outputFormat == ShaderFormat::GLSL)
     {
-        spirv_cross::CompilerGLSL glsl(spirv);
+        spirv_cross::CompilerGLSL glsl(spirvSource);
         spirv_cross::CompilerGLSL::Options scoptions;
         scoptions.version = options.glslVersion;
         scoptions.es = options.es;
@@ -53,19 +77,37 @@ std::string Compiler::compile(std::string& source, ShaderFormat inputFormat,
     }
     else if (outputFormat == ShaderFormat::HLSL)
     {
-        spirv_cross::CompilerHLSL hlsl(spirv);
+        spirv_cross::CompilerHLSL hlsl(spirvSource);
         return hlsl.compile();
     }
     else if (outputFormat == ShaderFormat::MSL)
     {
-        spirv_cross::CompilerMSL msl(spirv);
+        spirv_cross::CompilerMSL msl(spirvSource);
         return msl.compile();
     }
     else if (outputFormat == ShaderFormat::SPIRV)
     {
-        return spirv;
+        std::stringstream result;
+        std::copy(spirvSource.begin(),spirvSource.end(),
+                  std::ostream_iterator<uint32_t>(result, " "));
+        return result.str().c_str();
     }
 
     return "";
 }
+}
+
+int main()
+{
+    std::string vertSource = "";
+
+	std::string fragSource = "";
+
+	xsdr::Options options;
+
+	std::string out = xsdr::compile(vertSource, xsdr::ShaderFormat::GLSL,
+                  xsdr::ShaderFormat::HLSL, options);
+
+	return 0;
+
 }
