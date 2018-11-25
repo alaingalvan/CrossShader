@@ -1,4 +1,4 @@
-#include "CrossShader.h"
+﻿#include "CrossShader.h"
 
 #include <utility>
 #include <vector>
@@ -6,12 +6,10 @@
 namespace xsdr
 {
 std::string compile(std::string& source, ShaderFormat inputFormat,
-                    ShaderFormat outputFormat, Options options)
+                    ShaderFormat outputFormat, InputOptions ioptions, OutputOptions ooptions)
 {
-    if (inputFormat == outputFormat)
-    {
-        return source;
-    }
+
+	// ⬇️ Input Compilation
 
     if (inputFormat == ShaderFormat::MSL)
     {
@@ -29,53 +27,38 @@ std::string compile(std::string& source, ShaderFormat inputFormat,
         const char* strs = source.c_str();
 
         glslang::InitializeProcess();
-        // std::vector<glslang::ShaderCompUnit> compUnits;
 
-        glslang::TShader vert(EShLangVertex);
-        vert.setStrings(&strs, 1);
-        //vert.setSourceEntryPoint("main");
+        glslang::TShader shader(static_cast<EShLanguage>(ioptions.stage));
+        shader.setStrings(&strs, 1);
 
-        // if the lang is hlsl
         if (inputFormat == ShaderFormat::HLSL)
         {
-            vert.setEnvTargetHlslFunctionality1();
+            shader.setEnvTargetHlslFunctionality1();
         }
 
         TBuiltInResource builtInResources = glslang::DefaultTBuiltInResource;
         EShMessages messages = EShMsgSpvRules;
 
-        vert.parse(&builtInResources, options.glslVersion, true, messages);
+        shader.parse(&builtInResources, ioptions.glslVersion, true, messages);
 
         glslang::SpvOptions spvOptions;
         spv::SpvBuildLogger logger;
 
-        glslang::TIntermediate* inter = vert.getIntermediate();
+        glslang::TIntermediate* inter = shader.getIntermediate();
 
         glslang::GlslangToSpv(*inter, spirvSource, &logger, &spvOptions);
-
-        // not sure of the scope of this library, but writing files is probably
-        // out of it, returning the spirSource is probably good enough...
-        // glslang::OutputSpvBin(spirvSource, "basename");
-
-        // maybe we want spirv disassembly, though shader playground is probably
-        // good enough for that, we should just stick with cross compilation...
-        // spv::Disassemble(std::cout, spirvSource);
-
-        // maybe we should also bundle a cli tool for this library, though that
-        // would probably not be as useful as the cli tools of regular old
-        // spirv-cross and glslang, could be easier though...
 
         glslang::FinalizeProcess();
     }
 
-    // Output data
+    // ⬆️ Output Transpliation
 
     if (outputFormat == ShaderFormat::GLSL)
     {
         spirv_cross::CompilerGLSL glsl(spirvSource);
         spirv_cross::CompilerGLSL::Options scoptions;
-        scoptions.version = options.glslVersion;
-        scoptions.es = options.es;
+        scoptions.version = ooptions.glslVersion;
+        scoptions.es = ooptions.es;
         glsl.set_common_options(scoptions);
         return glsl.compile();
     }
@@ -139,12 +122,17 @@ int main()
         "layout(location = 0) out vec4 outFragColor;\n"
         "void main() { outFragColor = vec4(inColor, 1.0); }\n";
 
-    xsdr::Options options;
-    options.es = false;
-    options.glslVersion = 110;
+    xsdr::InputOptions ioptions;
+    ioptions.stage = xsdr::ShaderStage::Vertex;
+    ioptions.es = false;
+    ioptions.glslVersion = 110;
+
+	xsdr::OutputOptions ooptions;
+    ooptions.es = true;
+    ooptions.glslVersion = 100;
 
     std::string out = xsdr::compile(vertSource, xsdr::ShaderFormat::GLSL,
-                                    xsdr::ShaderFormat::MSL, options);
+                                    xsdr::ShaderFormat::GLSL, ioptions, ooptions);
 
     return 0;
 }

@@ -64,18 +64,24 @@ enum ShaderFormat {
     ShaderFormatMax
 }
 
-type compile = (inputString: string, inputFormat: ShaderFormat, outputFormat: ShaderFormat) => string;
+type compile = (inputString: string, inputFormat: ShaderFormat, outputFormat: ShaderFormat, ioptions: InputOptions, ooptions: OutputOptions) => string;
 ```
 
 ```js
-import compile, {ShaderFormat} from 'cross-shader';
+import compile, {ShaderFormat, ShaderStage} from 'cross-shader';
 
-const options = {
+const ioptions = {
+  shaderStage: ShaderStage.Vertex,
   es: false,
   glslVersion: 450
 };
 
-let outputString = compile(inputString, ShaderFormat.GLSL, ShaderFormat.HLSL, options);
+const ooptions = {
+  es: true,
+  glslVersion: 100
+}
+
+let outputString = compile(inputString, ShaderFormat.GLSL, ShaderFormat.GLSL, ioptions, ooptions);
 ```
 
 ### C++ Example
@@ -83,13 +89,19 @@ let outputString = compile(inputString, ShaderFormat.GLSL, ShaderFormat.HLSL, op
 ```cpp
 #include "CrossShader/CrossShader.h"
 
-void main(int argc, const char** argv)
+void main()
 {
-  xsdr::Options options;
-  options.es = false;
-  options.glslVersion = 450;
+  xsdr::InputOptions ioptions;
+  ioptions.stage = xsdr::ShaderStage::Vertex;
+  ioptions.es = false;
+  ioptions.glslVersion = 110;
 
-  const char* outputString = xsdr::compile(inputString, xsdr::ShaderFormat::GLSL, xsdr::ShaderFormat::HLSL, options);
+	xsdr::OutputOptions ooptions;
+  ooptions.es = true;
+  ooptions.glslVersion = 100;
+
+  std::string out = xsdr::compile(vertSource, xsdr::ShaderFormat::GLSL,
+                                  xsdr::ShaderFormat::GLSL, ioptions, ooptions);
 }
 ```
 
@@ -145,7 +157,7 @@ Whenever you add new files to the project, run `cmake ..` from your solution/pro
 
 ### WebAssembly
 
-Note, if you're on Windows, I would highly recommend using the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-the-windows-subsystem-for-linux).
+**Note**: if you're on Windows, I would highly recommend using the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-the-windows-subsystem-for-linux).
 
 First, install the latest version of Emscripten via the [Emscripten SDK](https://kripken.github.io/emscripten-site/docs/getting_started/downloads.html). Make sure to add it's Emscripten installation to your `PATH`, then:
 
