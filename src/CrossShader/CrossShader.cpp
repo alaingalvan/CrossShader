@@ -84,6 +84,10 @@ std::string compile(std::string& source, ShaderFormat inputFormat,
 }
 }
 
+#ifdef EMSCRIPTEN
+EMSCRIPTEN_BINDINGS(cross-shader) { function("compile", &compile); }
+#endif
+
 int main()
 {
     std::string vertSource =

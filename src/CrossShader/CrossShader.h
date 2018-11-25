@@ -18,6 +18,8 @@
 #include "spirv_msl.hpp"
 
 #include <string>
+#include <exception>
+#include <ostream>
 
 namespace xsdr
 {
