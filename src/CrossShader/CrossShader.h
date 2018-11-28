@@ -21,6 +21,7 @@
 #include <exception>
 #include <stdexcept>
 #include <ostream>
+#include <iterator>
 
 namespace xsdr
 {

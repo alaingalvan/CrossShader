@@ -49,7 +49,7 @@ target_link_libraries(
 
 ## Usage
 
-This library exposes a single function: `compile(const char* inputString, xsdr::ShaderFormat inputFormat, xsdr::ShaderFormat outputFormat);`, and returns the output string, or throws an exception if there's an error compiling, with the error message exposed in the exception object.
+This library exposes a single function `compile(...)` and its config structs/enums, and returns either the output string, or throws an exception if there's an error compiling, with the error message exposed in the exception object.
 
 ### Node.js Example
 
@@ -96,7 +96,7 @@ void main()
   ioptions.es = false;
   ioptions.glslVersion = 110;
 
-	xsdr::OutputOptions ooptions;
+  xsdr::OutputOptions ooptions;
   ooptions.es = true;
   ooptions.glslVersion = 100;
 
