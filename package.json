@@ -1,10 +1,10 @@
 {
-  "name": "crossshader",
+  "name": "cross-shader",
   "version": "0.1.0",
   "description": "A cross compiler for shader languages. Convert between GLSL, HLSL, Metal Shader Language, or older versions of GLSL.",
   "main": "bin/CrossShader.wasm",
   "scripts": {
-    "build": "cd wasm & emmake make CrossShader -j",
+    "build": "cd wasm & & emcmake cmake .. & emmake make CrossShader -j",
     "start": "npm run build"
   },
   "repository": {

@@ -1,11 +1,11 @@
 sudo: false
-env:
-  global:
-    - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow"
+#env:
+#  global:
+#    - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow"
 language:
   - cpp
 compiler:
-  - g++
+  - clang
 addons:
   apt:
     update: true

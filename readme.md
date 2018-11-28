@@ -182,7 +182,7 @@ CrossShader is licensed as either **MIT** or **Apache-2.0**, whichever you would
 [license-img]: https://img.shields.io/:license-mit-blue.svg?style=flat-square
 [license-url]: https://opensource.org/licenses/MIT
 [travis-img]: https://img.shields.io/travis/alaingalvan/CrossShader.svg?style=flat-square&logo=travis
-[travis-url]: https://travis-ci.org/alaingalvan/crossshader
+[travis-url]: https://travis-ci.org/alaingalvan/CrossShader
 [npm-img]: https://img.shields.io/npm/v/cross-shader.svg?style=flat-square
 [npm-url]: http://npm.im/cross-shader
 [npm-download-img]: https://img.shields.io/npm/dm/cross-shader.svg?style=flat-square

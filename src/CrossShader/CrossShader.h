@@ -72,8 +72,8 @@ struct OutputOptions
 };
 
 std::string compile(std::string source, ShaderFormat inputFormat,
-                    ShaderFormat outputFormat, InputOptions ioptions = InputOptions(),
-                    OutputOptions ooptions = OutputOptions());
+                    ShaderFormat outputFormat, InputOptions ioptions,
+                    OutputOptions ooptions);
 	
 std::string compileWeb(std::string source);
 }

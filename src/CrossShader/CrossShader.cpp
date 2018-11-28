@@ -102,8 +102,48 @@ std::string compile(std::string source, ShaderFormat inputFormat,
 
 #ifdef EMSCRIPTEN
 #include <emscripten/bind.h>
+EMSCRIPTEN_BINDINGS(cross_shader)
+{
+    emscripten::enum_<xsdr::ShaderFormat>("ShaderFormat")
+    .value("GLSL", xsdr::ShaderFormat::GLSL)
+    .value("HLSL", xsdr::ShaderFormat::HLSL)
+    .value("MSL", xsdr::ShaderFormat::MSL)
+    .value("SPIRV", xsdr::ShaderFormat::SPIRV)
+    .value("ShaderFormatMax", xsdr::ShaderFormat::ShaderFormatMax);
+    
+    emscripten::enum_<xsdr::ShaderStage>("ShaderStage")
+    .value("Vertex", xsdr::ShaderStage::Vertex)
+    .value("TessControl", xsdr::ShaderStage::TessControl)
+    .value("TessEvaluation", xsdr::ShaderStage::TessEvaluation)
+    .value("Geometry", xsdr::ShaderStage::Geometry)
+    .value("Fragment", xsdr::ShaderStage::Fragment)
+    .value("Compute", xsdr::ShaderStage::Compute)
+    /*
+    // Raytracing Stages
+    RayGen,
+    Intersect,
+    AnyHit,
+    ClosestHit,
+    Miss,
+    Callable,
+    Task,
+    Mesh,
+    */
+    .value("ShaderStageMax", xsdr::ShaderStage::ShaderStageMax);
+    
+    emscripten::value_object<xsdr::InputOptions>("InputOptions")
+    .field("stage", &xsdr::InputOptions::stage)
+    .field("glslVersion", &xsdr::InputOptions::glslVersion)
+    .field("es", &xsdr::InputOptions::es);
+    
+    emscripten::value_object<xsdr::OutputOptions>("OutputOptions")
+    .field("glslVersion", &xsdr::OutputOptions::glslVersion)
+    .field("es", &xsdr::OutputOptions::es);
 
-EMSCRIPTEN_BINDINGS(cross_shader) { emscripten::function("compile", &xsdr::compileWeb); }
+    emscripten::function("compile", &xsdr::compile);
+
+    emscripten::function("compileTest", &xsdr::compileWeb);
+}
 #endif
 
 int main()
