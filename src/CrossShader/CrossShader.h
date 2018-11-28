@@ -19,6 +19,7 @@
 
 #include <string>
 #include <exception>
+#include <stdexcept>
 #include <ostream>
 
 namespace xsdr
@@ -70,7 +71,9 @@ struct OutputOptions
     bool es;
 };
 
-std::string compile(std::string& source, ShaderFormat inputFormat,
+std::string compile(std::string source, ShaderFormat inputFormat,
                     ShaderFormat outputFormat, InputOptions ioptions = InputOptions(),
                     OutputOptions ooptions = OutputOptions());
+	
+std::string compileWeb(std::string source);
 }

@@ -114,3 +114,11 @@ add_dependencies(
     spirv-cross-reflect
     spirv-cross-util
 )
+
+# =============================================================
+
+# Final Settings
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--bind -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0")
+endif()
