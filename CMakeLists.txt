@@ -122,3 +122,6 @@ add_dependencies(
 if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
     set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--bind -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0")
 endif()
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-lpthread")
+endif()

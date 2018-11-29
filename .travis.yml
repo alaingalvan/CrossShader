@@ -5,7 +5,7 @@ sudo: false
 language:
   - cpp
 compiler:
-  - clang
+  - g++
 addons:
   apt:
     update: true
