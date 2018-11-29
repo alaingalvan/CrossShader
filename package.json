@@ -33,6 +33,17 @@
   },
   "homepage": "https://github.com/alaingalvan/crossshader#readme",
   "devDependencies": {
-    "ava": "^0.25.0"
+    "@types/node": "^10.12.x",
+    "ava": "^0.25.x",
+    "codecov": "^3.1.x",
+    "coveralls": "^3.0.x",
+    "nyc": "^13.0.x",
+    "ts-loader": "^5.2.x",
+    "typescript": "^3.2.x",
+    "clean-webpack-plugin": "^1.0.x",
+    "uglifyjs-webpack-plugin": "^2.0.x",
+    "webpack": "^4.26.x",
+    "webpack-command": "^0.4.x",
+    "webpack-merge": "^4.1.x"
   }
 }

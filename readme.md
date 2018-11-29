@@ -1,17 +1,19 @@
-![Cover Image](docs/cover.jpg)
-
-# CrossShader
+<p align="center">
+  <a href="https://alain.xyz/libraries/crossshader">
+    <img alt="Logo" src="docs/cover.jpg"/>
+  </a>
+</p>
+<h1 align="center">
+  ⚔️ CrossShader
+</h1>
 
 [![Npm Package][npm-img]][npm-url]
 [![cmake-img]][cmake-url]
 [![License][license-img]][license-url]
 [![Travis Tests][travis-img]][travis-url]
-[![Coverage Tests][codecov-img]][codecov-url]
 [![devDependency Status][david-dev-img]][david-dev-url]
 
-> 🚧 Currently a Work in Progress! 🚧
-
-A cross compiler for shader languages. Convert between SPIR-V, GLSL, HLSL, Metal Shader Language, or older versions of GLSL. It works as a wrapper to [glslang](https://github.com/KhronosGroup/glslang) and [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross/).
+A cross compiler for shader languages. Convert between SPIR-V, GLSL, HLSL, Metal Shader Language, or older versions of GLSL. Cross Shader wraps [glslang](https://github.com/KhronosGroup/glslang) and [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross/), exposing a simpler interface that can automatically detect languages and translate snippets of shader code.
 
 ## Installation
 
@@ -53,19 +55,7 @@ This library exposes a single function `compile(...)` and its config structs/enu
 
 ### Node.js Example
 
-```ts
-// Just to clarify TypeScript definitions:
-
-enum ShaderFormat {
-    GLSL,
-    HLSL,
-    MSL,
-    SPIRV,
-    ShaderFormatMax
-}
-
-type compile = (inputString: string, inputFormat: ShaderFormat, outputFormat: ShaderFormat, ioptions: InputOptions, ooptions: OutputOptions) => string;
-```
+TypeScript types are included, refer to [`cross-shader.d.ts`](/cross-shader.d.ts) or the [Node.js documentation](https://alain.xyz/libraries/crossshader/docs#nodejs) for more details.
 
 ```js
 import compile, {ShaderFormat, ShaderStage} from 'cross-shader';
@@ -85,6 +75,8 @@ let outputString = compile(inputString, ShaderFormat.GLSL, ShaderFormat.GLSL, io
 ```
 
 ### C++ Example
+
+Refer to [`src/CrossShader/CrossShader.h`](/src/CrossShader.h) or the [C++ documentation](https://alain.xyz/libraries/crossshader/docs#cpp) for more details.
 
 ```cpp
 #include "CrossShader/CrossShader.h"
@@ -162,11 +154,11 @@ Whenever you add new files to the project, run `cmake ..` from your solution/pro
 First, install the latest version of Emscripten via the [Emscripten SDK](https://kripken.github.io/emscripten-site/docs/getting_started/downloads.html). Make sure to add it's Emscripten installation to your `PATH`, then:
 
 ```bash
-# Possible dependencies you might need:
+# ⚠️ Possible dependencies you might need:
 sudo apt-get update
 sudo apt-get install cmake build-essential llvm
 
-# Then run the following:
+# 🏃 Then run the following:
 mkdir wasm
 cd wasm
 emcmake cmake ..

@@ -58,23 +58,39 @@ enum ShaderStage
 
 struct InputOptions
 {
+    // All
+    ShaderFormat format;
     ShaderStage stage;
+    bool ignoreErrors;
 
-    // OpenGL
+    // GLSL
     unsigned glslVersion;
     bool es;
+
+    // HLSL
+
+    // MSL
+
 };
 
 struct OutputOptions
 {
-    // OpenGL
+    // All
+    ShaderFormat format;
+
+    // GLSL
     unsigned glslVersion;
     bool es;
+
+    // HLSL
+
+    // MSL
+
 };
+
+std::string compile2(std::string source, InputOptions ioptions, OutputOptions ooptions);
 
 std::string compile(std::string source, ShaderFormat inputFormat,
                     ShaderFormat outputFormat, InputOptions ioptions,
                     OutputOptions ooptions);
-	
-std::string compileWeb(std::string source);
 }
