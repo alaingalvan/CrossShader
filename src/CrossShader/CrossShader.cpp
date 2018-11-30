@@ -5,12 +5,12 @@
 
 namespace xsdr
 {
-std::string compile(std::string source, ShaderFormat inputFormat,
-                    ShaderFormat outputFormat, InputOptions ioptions,
+std::string compile(std::string source, InputOptions ioptions,
                     OutputOptions ooptions)
 {
 
     // ⬇️ Input Compilation
+    ShaderFormat& inputFormat = ioptions.format;
 
     if (inputFormat == ShaderFormat::MSL)
     {
@@ -52,6 +52,8 @@ std::string compile(std::string source, ShaderFormat inputFormat,
     }
 
     // ⬆️ Output Transpliation
+
+    ShaderFormat& outputFormat = ooptions.format;
 
     if (outputFormat == ShaderFormat::GLSL)
     {
@@ -105,21 +107,18 @@ EMSCRIPTEN_BINDINGS(cross_shader)
         .value("ShaderStageMax", xsdr::ShaderStage::ShaderStageMax);
 
     emscripten::value_object<xsdr::InputOptions>("InputOptions")
+        .field("format", &xsdr::InputOptions::format)
         .field("stage", &xsdr::InputOptions::stage)
         .field("glslVersion", &xsdr::InputOptions::glslVersion)
         .field("es", &xsdr::InputOptions::es);
 
     emscripten::value_object<xsdr::OutputOptions>("OutputOptions")
+        .field("format", &xsdr::OutputOptions::format)
         .field("glslVersion", &xsdr::OutputOptions::glslVersion)
         .field("es", &xsdr::OutputOptions::es);
 
     emscripten::function("compile", &xsdr::compile);
-
-    emscripten::function("compileTest", &xsdr::compileWeb);
 }
 #endif
 
-int main()
-{
-    return 0;
-}
+int main() { return 0; }

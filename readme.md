@@ -61,17 +61,19 @@ TypeScript types are included, refer to [`cross-shader.d.ts`](/cross-shader.d.ts
 import compile, {ShaderFormat, ShaderStage} from 'cross-shader';
 
 const ioptions = {
+  format: ShaderFormat.GLSL,
   shaderStage: ShaderStage.Vertex,
   es: false,
   glslVersion: 450
 };
 
 const ooptions = {
+  format: ShaderFormat.GLSL,
   es: true,
   glslVersion: 100
 }
 
-let outputString = compile(inputString, ShaderFormat.GLSL, ShaderFormat.GLSL, ioptions, ooptions);
+let outputString = compile(inputString, ioptions, ooptions);
 ```
 
 ### C++ Example
@@ -84,16 +86,17 @@ Refer to [`src/CrossShader/CrossShader.h`](/src/CrossShader.h) or the [C++ docum
 void main()
 {
   xsdr::InputOptions ioptions;
+  ioptions.format = xsdr::ShaderFormat::GLSL;
   ioptions.stage = xsdr::ShaderStage::Vertex;
   ioptions.es = false;
   ioptions.glslVersion = 110;
 
   xsdr::OutputOptions ooptions;
+  ooptions.format = xsdr::ShaderFormat::GLSL;
   ooptions.es = true;
   ooptions.glslVersion = 100;
 
-  std::string out = xsdr::compile(vertSource, xsdr::ShaderFormat::GLSL,
-                                  xsdr::ShaderFormat::GLSL, ioptions, ooptions);
+  std::string out = xsdr::compile(vertSource, ioptions, ooptions);
 }
 ```
 

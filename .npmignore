@@ -1,9 +1,14 @@
-build/
-wasm/
+bin
+build
+wasm
+
+!bin/CrossShader.js
+!bin/CrossShader.wasm
 
 tests
 coverage
 docs
+!docs/cover.jpg
 assets
 src
 external

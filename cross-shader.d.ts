@@ -17,7 +17,9 @@ declare enum ShaderStage {
 
 
 type InputOptions = {
-  stage: ShaderStage
+  // All
+  format: ShaderFormat,
+  stage: ShaderStage,
 
   // ⚪ GLSL
   es?: boolean,
@@ -26,11 +28,13 @@ type InputOptions = {
 };
 
 type OutputOptions = {
-  
+  // All
+  format: ShaderFormat,
+
   // ⚪ GLSL
   es?: boolean,
   glslVersion?: number
 
 };
 
-type compile = (inputString: string, inputFormat: ShaderFormat, outputFormat: ShaderFormat, ioptions: InputOptions, ooptions: OutputOptions) => string;
+type compile = (inputString: string, ioptions: InputOptions, ooptions: OutputOptions) => string;

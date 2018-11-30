@@ -42,17 +42,6 @@ enum ShaderStage
     Geometry,
     Fragment,
     Compute,
-    /*
-    // Raytracing Stages
-    RayGen,
-    Intersect,
-    AnyHit,
-    ClosestHit,
-    Miss,
-    Callable,
-    Task,
-    Mesh,
-    */
     ShaderStageMax
 };
 
@@ -68,8 +57,10 @@ struct InputOptions
     bool es;
 
     // HLSL
+    unsigned hlhlShaderModel;
 
     // MSL
+    unsigned metalPlatform;
 
 };
 
@@ -83,14 +74,11 @@ struct OutputOptions
     bool es;
 
     // HLSL
+    unsigned hlhlShaderModel;
 
     // MSL
-
+    unsigned metalPlatform;
 };
 
-std::string compile2(std::string source, InputOptions ioptions, OutputOptions ooptions);
-
-std::string compile(std::string source, ShaderFormat inputFormat,
-                    ShaderFormat outputFormat, InputOptions ioptions,
-                    OutputOptions ooptions);
+std::string compile(std::string source, InputOptions ioptions, OutputOptions ooptions);
 }
