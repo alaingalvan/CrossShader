@@ -1,8 +1,8 @@
 {
   "name": "cross-shader",
-  "version": "0.1.0",
-  "description": "A cross compiler for shader languages. Convert between GLSL, HLSL, Metal Shader Language, or older versions of GLSL.",
-  "main": "bin/CrossShader.js",
+  "version": "0.1.1",
+  "description": "⚔️ A cross compiler for shader languages. Convert between GLSL, HLSL, Metal Shader Language, or older versions of GLSL.",
+  "main": "cross-shader.js",
   "scripts": {
     "build": "cd wasm & & emcmake cmake .. & emmake make CrossShader -j",
     "start": "npm run build"
@@ -37,13 +37,6 @@
     "ava": "^0.25.x",
     "codecov": "^3.1.x",
     "coveralls": "^3.0.x",
-    "nyc": "^13.0.x",
-    "ts-loader": "^5.2.x",
-    "typescript": "^3.2.x",
-    "clean-webpack-plugin": "^1.0.x",
-    "uglifyjs-webpack-plugin": "^2.0.x",
-    "webpack": "^4.26.x",
-    "webpack-command": "^0.4.x",
-    "webpack-merge": "^4.1.x"
+    "nyc": "^13.0.x"
   }
 }
