@@ -1,7 +1,8 @@
-bin
 build
 wasm
 
+*.hxl
+bin/*
 !bin/CrossShader.js
 !bin/CrossShader.wasm
 

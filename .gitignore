@@ -17,6 +17,7 @@ xcode
 make
 wasm
 wasm-build
+*.tgz
 
 ## Visual Studio
 # User-specific files

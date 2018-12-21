@@ -164,7 +164,7 @@ sudo apt-get install cmake build-essential llvm
 # 🏃 Then run the following:
 mkdir wasm
 cd wasm
-emcmake cmake ..
+emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
 emmake make CrossShader -j
 ```
 
