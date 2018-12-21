@@ -39,14 +39,30 @@ std::string compile(std::string source, InputOptions ioptions,
         TBuiltInResource builtInResources = glslang::DefaultTBuiltInResource;
         EShMessages messages = EShMsgSpvRules;
 
+        shader.setAutoMapBindings(true);
+        shader.setAutoMapLocations(true);
+
         shader.parse(&builtInResources, ioptions.glslVersion, true, messages);
 
         glslang::SpvOptions spvOptions;
+        spvOptions.validate = false;
         spv::SpvBuildLogger logger;
 
-        glslang::TIntermediate* inter = shader.getIntermediate();
+        const char* log = shader.getInfoLog();
 
-        glslang::GlslangToSpv(*inter, spirvSource, &logger, &spvOptions);
+        if (strlen(log) > 0)
+        {
+            throw std::runtime_error(log);
+        }
+
+        glslang::TIntermediate* inter = shader.getIntermediate();
+        try
+        {
+            glslang::GlslangToSpv(*inter, spirvSource, &logger, &spvOptions);
+        }
+        catch (...)
+        {
+        }
 
         glslang::FinalizeProcess();
     }
@@ -120,5 +136,3 @@ EMSCRIPTEN_BINDINGS(cross_shader)
     emscripten::function("compile", &xsdr::compile);
 }
 #endif
-
-int main() { return 0; }

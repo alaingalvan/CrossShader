@@ -64,7 +64,7 @@ endforeach()
 
 # Finalize App
 
-add_executable(
+add_library(
     ${PROJECT_NAME}
     "${FILE_SOURCES}"
 )
