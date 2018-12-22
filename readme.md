@@ -62,7 +62,7 @@ import compile, {ShaderFormat, ShaderStage} from 'cross-shader';
 
 const ioptions = {
   format: ShaderFormat.GLSL,
-  shaderStage: ShaderStage.Vertex,
+  stage: ShaderStage.Vertex,
   es: false,
   glslVersion: 450
 };
@@ -71,7 +71,7 @@ const ooptions = {
   format: ShaderFormat.GLSL,
   es: true,
   glslVersion: 100
-}
+};
 
 let outputString = compile(inputString, ioptions, ooptions);
 ```

@@ -5,7 +5,8 @@
   "main": "cross-shader.js",
   "scripts": {
     "build": "cd wasm & & emcmake cmake .. & emmake make CrossShader -j",
-    "start": "npm run build"
+    "start": "npm run build",
+    "test": "ava tests/test.js"
   },
   "repository": {
     "type": "git",
