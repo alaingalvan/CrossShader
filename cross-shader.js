@@ -1,7 +1,8 @@
-const Module = require('./bin/CrossShader.js');
+let m = require('./bin/CrossShader.js');
 
 module.exports = {
-    ShaderFormat: Module.shaderFormat,
-    ShaderStage: Module.ShaderStage,
-    compile: Module.compile
+    ShaderFormat: m.shaderFormat,
+    ShaderStage: m.ShaderStage,
+    compile: m.compile,
+    default: m.compile
 };

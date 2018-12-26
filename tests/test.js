@@ -1,6 +1,8 @@
-CrossShader = require('../bin/CrossShader.js');
+let { compile, ShaderFormat, ShaderStage } =  require('../cross-shader.js');
+let { default: test } = require('ava');
 
-let inputString = `
+test('GLSL 450 to GLSL ES 100', t => {
+  let inputString = `
 #version 450
 
 #extension GL_ARB_separate_shader_objects : enable
@@ -31,21 +33,21 @@ void main()
 }
 `;
 
-const {compile, ShaderFormat, ShaderStage} = CrossShader;
 
-const ioptions = {
-  format: ShaderFormat.GLSL,
-  shaderStage: ShaderStage.Vertex,
-  es: false,
-  glslVersion: 450
-};
+  const ioptions = {
+    format: ShaderFormat.GLSL,
+    stage: ShaderStage.Vertex,
+    es: false,
+    glslVersion: 450
+  };
 
-const ooptions = {
-  format: ShaderFormat.GLSL,
-  es: true,
-  glslVersion: 100
-}
+  const ooptions = {
+    format: ShaderFormat.GLSL,
+    es: true,
+    glslVersion: 100
+  };
+  
+  let outputString = compile(inputString, ioptions, ooptions);
 
-let outputString = compile(inputString, ioptions, ooptions);
-
-console.log(outputString);
+  t.pass(outputString);
+});

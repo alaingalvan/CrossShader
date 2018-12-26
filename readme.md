@@ -65,7 +65,7 @@ import xsdr from 'cross-shader';
 xsdr.then(({ compile, ShaderFormat, ShaderStage }) => {
   const ioptions = {
     format: ShaderFormat.GLSL,
-    shaderStage: ShaderStage.Vertex,
+    stage: ShaderStage.Vertex,
     es: false,
     glslVersion: 450
   };

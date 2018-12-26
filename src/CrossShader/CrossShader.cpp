@@ -136,3 +136,8 @@ EMSCRIPTEN_BINDINGS(cross_shader)
     emscripten::function("compile", &xsdr::compile);
 }
 #endif
+
+int main()
+{
+    return 0;
+}

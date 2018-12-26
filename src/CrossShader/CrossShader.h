@@ -57,10 +57,10 @@ struct InputOptions
     bool es;
 
     // HLSL
-    unsigned hlhlShaderModel;
+    //unsigned hlhlShaderModel;
 
     // MSL
-    unsigned metalPlatform;
+    //unsigned metalPlatform;
 
 };
 
@@ -74,10 +74,10 @@ struct OutputOptions
     bool es;
 
     // HLSL
-    unsigned hlhlShaderModel;
+    //unsigned hlhlShaderModel;
 
     // MSL
-    unsigned metalPlatform;
+    //unsigned metalPlatform;
 };
 
 std::string compile(std::string source, InputOptions ioptions, OutputOptions ooptions);
