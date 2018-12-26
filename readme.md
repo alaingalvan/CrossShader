@@ -55,30 +55,34 @@ This library exposes a single function `compile(...)` and its config structs/enu
 
 ### Node.js Example
 
-TypeScript types are included, refer to [`cross-shader.d.ts`](/cross-shader.d.ts) or the [Node.js documentation](https://alain.xyz/libraries/crossshader/docs#nodejs) for more details.
+TypeScript types are included, refer to [`cross-shader.d.ts`](/cross-shader.d.ts) for more details.
+
+Similar to other WebAssembly modules, importing the module gives you a promise to the compiled webassembly binary:
 
 ```js
-import compile, {ShaderFormat, ShaderStage} from 'cross-shader';
+import xsdr from 'cross-shader';
 
-const ioptions = {
-  format: ShaderFormat.GLSL,
-  shaderStage: ShaderStage.Vertex,
-  es: false,
-  glslVersion: 450
-};
+xsdr.then(({ compile, ShaderFormat, ShaderStage }) => {
+  const ioptions = {
+    format: ShaderFormat.GLSL,
+    shaderStage: ShaderStage.Vertex,
+    es: false,
+    glslVersion: 450
+  };
 
-const ooptions = {
-  format: ShaderFormat.GLSL,
-  es: true,
-  glslVersion: 100
-}
+  const ooptions = {
+    format: ShaderFormat.GLSL,
+    es: true,
+    glslVersion: 100
+  }
 
-let outputString = compile(inputString, ioptions, ooptions);
+  let outputString = compile(inputString, ioptions, ooptions);
+});
 ```
 
 ### C++ Example
 
-Refer to [`src/CrossShader/CrossShader.h`](/src/CrossShader.h) or the [C++ documentation](https://alain.xyz/libraries/crossshader/docs#cpp) for more details.
+Refer to [`src/CrossShader/CrossShader.h`](/src/CrossShader.h) for more details.
 
 ```cpp
 #include "CrossShader/CrossShader.h"
