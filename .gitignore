@@ -18,6 +18,7 @@ make
 wasm
 wasm-build
 *.tgz
+dist
 
 ## Visual Studio
 # User-specific files
