@@ -21,6 +21,6 @@ webpack.*.js
 .travis.yml
 .vscode
 example
-license.md
+.gitmodules
 
 !docs/cover.svg
