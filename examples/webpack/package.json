@@ -1,23 +1,23 @@
 {
-  "name": "cross-shader-webpack",
-  "version": "1.0.0",
-  "description": "An example of using CrossShader with Webpack",
-  "main": "dist/build.js",
-  "scripts": {
-    "build": "webpack"
-  },
-  "author": "Alain Galvan",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^10.12.18",
-    "clean-webpack-plugin": "^1.0.0",
-    "file-loader": "^3.0.1",
-    "ts-loader": "^5.3.2",
-    "typescript": "^3.2.2",
-    "webpack": "^4.28.2",
-    "webpack-cli": "^3.1.2"
-  },
-  "dependencies": {
-    "cross-shader": "^0.2.0"
-  }
+    "name": "cross-shader-webpack",
+    "version": "1.0.0",
+    "description": "An example of using CrossShader with Webpack",
+    "main": "dist/build.js",
+    "scripts": {
+        "build": "webpack"
+    },
+    "author": "Alain Galvan",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^10.12.18",
+        "clean-webpack-plugin": "^1.0.0",
+        "file-loader": "^3.0.1",
+        "ts-loader": "^5.3.2",
+        "typescript": "^3.2.2",
+        "webpack": "^4.28.2",
+        "webpack-cli": "^3.1.2"
+    },
+    "dependencies": {
+        "cross-shader": "^0.2.0"
+    }
 }
