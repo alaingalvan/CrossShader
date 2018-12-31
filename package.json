@@ -1,6 +1,6 @@
 {
   "name": "cross-shader",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "⚔️ A cross compiler for shader languages. Convert between GLSL, HLSL, Metal Shader Language, or older versions of GLSL.",
   "main": "cross-shader.js",
   "scripts": {

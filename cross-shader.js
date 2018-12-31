@@ -1,4 +1,6 @@
-let m = require('./bin/CrossShader.js');
+let xsdrModule = require('./bin/CrossShader.js');
+
+const m = xsdrModule();
 
 module.exports = {
     default: new Promise((res, rej) => {

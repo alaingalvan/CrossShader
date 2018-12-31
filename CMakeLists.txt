@@ -120,7 +120,7 @@ add_dependencies(
 # Final Settings
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
-    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--bind -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -O2 -Wall")
+    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--bind -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -O2 -Wall -s MODULARIZE=1")
 endif()
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-pthread")
