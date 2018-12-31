@@ -2,8 +2,8 @@ import 'cross-shader/bin/CrossShader.wasm';
 import xsdr from 'cross-shader';
 
 async function main() {
-	let { compile, ShaderStage, ShaderFormat } = await xsdr;
-	let inputString = `
+    let { compile, ShaderStage, ShaderFormat } = await xsdr;
+    let inputString = `
 #version 450
 #extension GL_ARB_separate_shader_objects : enable
 #extension GL_ARB_shading_language_420pack : enable
@@ -27,22 +27,22 @@ void main()
 }
 `;
 
-	const ioptions = {
-		format: ShaderFormat.GLSL,
-		stage: ShaderStage.Vertex,
-		es: false,
-		glslVersion: 450
-	};
+    const ioptions = {
+        format: ShaderFormat.GLSL,
+        stage: ShaderStage.Vertex,
+        es: false,
+        glslVersion: 450
+    };
 
-	const ooptions = {
-		format: ShaderFormat.GLSL,
-		es: true,
-		glslVersion: 100
-	};
+    const ooptions = {
+        format: ShaderFormat.GLSL,
+        es: true,
+        glslVersion: 100
+    };
 
-	let outputString = compile(inputString, ioptions, ooptions);
+    let outputString = compile(inputString, ioptions, ooptions);
 
-	console.log(outputString);
+    console.log(outputString);
 }
 
 main();

@@ -13,17 +13,7 @@
 [![Travis Tests][travis-img]][travis-url]
 [![devDependency Status][david-dev-img]][david-dev-url]
 
-A cross compiler for shader languages. Convert between SPIR-V, GLSL, HLSL, Metal Shader Language, or older versions of GLSL. Cross Shader wraps [glslang](https://github.com/KhronosGroup/glslang) and [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross/), exposing a simpler interface to transpile shaders. 
-
-## Goals
-
-- [ ] Automatically detect languages.
-
-- [ ] Translate snippets of shader code.
-
-- [ ] Website for Documentation/Playground.
-
-- [ ] Avoid the use of `int main()` when compiling to WebAssembly.
+A cross compiler for shader languages. Convert between **SPIR-V**, **GLSL / GLSL ES**, **HLSL**, **Metal Shader Language**, or older versions of a given language. Cross Shader wraps [glslang](https://github.com/KhronosGroup/glslang) and [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross/), exposing a simpler interface to transpile shaders. 
 
 ## Installation
 
@@ -67,7 +57,7 @@ This library exposes a single function `compile(...)` and its config structs/enu
 
 TypeScript types are included, refer to [`cross-shader.d.ts`](/cross-shader.d.ts) for more details.
 
-Similar to other WebAssembly modules, importing the module gives you a promise to the compiled webassembly binary:
+Similar to other WebAssembly modules, importing the module gives you a promise to the compiled WebAssembly binary:
 
 ```js
 import xsdr from 'cross-shader';
@@ -178,7 +168,7 @@ sudo apt-get install cmake build-essential llvm
 # 🏃 Then run the following:
 mkdir wasm
 cd wasm
-emcmake cmake -DCMAKE_BUILD_TYPE=Release ..
+emcmake cmake ..
 emmake make CrossShader -j
 ```
 
