@@ -16,8 +16,7 @@ std::string compile(std::string source, InputOptions ioptions,
     {
         // Metal Shader Language is not supported as an input format (maybe this
         // should be typesafe, but it probably will be supported in the future).
-        throw std::runtime_error(
-            "Metal is currently not supported as an input format.");
+        return "Metal is currently not supported as an input format.";
     }
 
     std::vector<uint32_t> spirvSource;
@@ -28,31 +27,39 @@ std::string compile(std::string source, InputOptions ioptions,
 
         glslang::InitializeProcess();
 
-        glslang::TShader shader(static_cast<EShLanguage>(ioptions.stage));
+        EShLanguage stage = static_cast<EShLanguage>(ioptions.stage);
+        glslang::TShader shader(stage);
         shader.setStrings(&strs, 1);
+
+        TBuiltInResource builtInResources = glslang::DefaultTBuiltInResource;
+        EShMessages messages =
+            static_cast<EShMessages>(EShMsgSpvRules | EShMsgSuppressWarnings);
 
         if (inputFormat == ShaderFormat::HLSL)
         {
             shader.setEnvTargetHlslFunctionality1();
         }
 
-        TBuiltInResource builtInResources = glslang::DefaultTBuiltInResource;
-        EShMessages messages = EShMsgSpvRules;
-
         shader.setAutoMapBindings(true);
         shader.setAutoMapLocations(true);
 
-        shader.parse(&builtInResources, ioptions.glslVersion, true, messages);
+        shader.setEnvInput(inputFormat == ShaderFormat::HLSL
+                               ? glslang::EShSourceHlsl
+                               : glslang::EShSourceGlsl,
+                           stage, glslang::EShClientOpenGL, 100);
+
+        shader.parse(&builtInResources, ioptions.glslVersion, false, messages);
 
         glslang::SpvOptions spvOptions;
         spvOptions.validate = false;
+        spvOptions.disableOptimizer = true;
         spv::SpvBuildLogger logger;
 
         const char* log = shader.getInfoLog();
 
         if (strlen(log) > 0)
         {
-            throw std::runtime_error(log);
+            return log;
         }
 
         glslang::TIntermediate* inter = shader.getIntermediate();
@@ -137,7 +144,4 @@ EMSCRIPTEN_BINDINGS(cross_shader)
 }
 #endif
 
-int main()
-{
-    return 0;
-}
+int main() { return 0; }
