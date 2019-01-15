@@ -32,12 +32,17 @@ std::string compile(std::string source, InputOptions ioptions,
         shader.setStrings(&strs, 1);
 
         TBuiltInResource builtInResources = glslang::DefaultTBuiltInResource;
-        EShMessages messages =
-            static_cast<EShMessages>(EShMsgSpvRules | EShMsgSuppressWarnings);
+        EShMessages messages = static_cast<EShMessages>(
+            EShMsgSpvRules |
+            (inputFormat == ShaderFormat::HLSL
+                 ? EShMsgReadHlsl | EShMsgHlslOffsets | EShMsgHlslLegalization
+                 : 0) |
+            EShMsgKeepUncalled | EShMsgSuppressWarnings);
 
         if (inputFormat == ShaderFormat::HLSL)
         {
             shader.setEnvTargetHlslFunctionality1();
+            shader.setHlslIoMapping(true);
         }
 
         shader.setAutoMapBindings(true);
@@ -46,13 +51,16 @@ std::string compile(std::string source, InputOptions ioptions,
         shader.setEnvInput(inputFormat == ShaderFormat::HLSL
                                ? glslang::EShSourceHlsl
                                : glslang::EShSourceGlsl,
-                           stage, glslang::EShClientOpenGL, 100);
-
-        shader.parse(&builtInResources, ioptions.glslVersion, false, messages);
+                           stage, glslang::EShClientVulkan, 100);
+        shader.setEnvTarget(glslang::EShTargetSpv, glslang::EShTargetSpv_1_3);
+        shader.setEnvClient(glslang::EShClientVulkan, glslang::EShTargetVulkan_1_1);
+        shader.parse(&builtInResources, inputFormat == ShaderFormat::HLSL ? 100 : ioptions.glslVersion, true, messages);
 
         glslang::SpvOptions spvOptions;
         spvOptions.validate = false;
         spvOptions.disableOptimizer = true;
+        spvOptions.optimizeSize = false;
+
         spv::SpvBuildLogger logger;
 
         const char* log = shader.getInfoLog();
@@ -63,6 +71,7 @@ std::string compile(std::string source, InputOptions ioptions,
         }
 
         glslang::TIntermediate* inter = shader.getIntermediate();
+        
         try
         {
             glslang::GlslangToSpv(*inter, spirvSource, &logger, &spvOptions);
@@ -90,6 +99,9 @@ std::string compile(std::string source, InputOptions ioptions,
     else if (outputFormat == ShaderFormat::HLSL)
     {
         spirv_cross::CompilerHLSL hlsl(spirvSource);
+        spirv_cross::CompilerHLSL::Options hlslOptions;
+        hlslOptions.shader_model = 500;
+        hlsl.set_hlsl_options(hlslOptions);
         return hlsl.compile();
     }
     else if (outputFormat == ShaderFormat::MSL)
