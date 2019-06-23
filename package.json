@@ -34,10 +34,10 @@
   },
   "homepage": "https://github.com/alaingalvan/crossshader#readme",
   "devDependencies": {
-    "@types/node": "^10.12.x",
-    "ava": "^1.0.x",
-    "codecov": "^3.1.x",
+    "@types/node": "^12.0.x",
+    "ava": "^2.1.x",
+    "codecov": "^3.5.x",
     "coveralls": "^3.0.x",
-    "nyc": "^13.0.x"
+    "nyc": "^14.1.x"
   }
 }
