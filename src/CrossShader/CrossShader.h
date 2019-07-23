@@ -22,6 +22,7 @@
 #include <stdexcept>
 #include <ostream>
 #include <iterator>
+#include <sstream>
 
 namespace xsdr
 {
