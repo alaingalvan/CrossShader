@@ -1,6 +1,6 @@
 {
   "name": "cross-shader",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "⚔️ A cross compiler for shader languages. Convert between GLSL, HLSL, Metal Shader Language, or older versions of GLSL.",
   "main": "cross-shader.js",
   "scripts": {
@@ -34,10 +34,10 @@
   },
   "homepage": "https://github.com/alaingalvan/crossshader#readme",
   "devDependencies": {
-    "@types/node": "^13.1.x",
-    "ava": "^2.4.x",
-    "codecov": "^3.6.x",
-    "coveralls": "^3.0.x",
-    "nyc": "^15.0.x"
+    "@types/node": "^14.0.x",
+    "ava": "^3.11.x",
+    "codecov": "^3.7.x",
+    "coveralls": "^3.1.x",
+    "nyc": "^15.1.x"
   }
 }

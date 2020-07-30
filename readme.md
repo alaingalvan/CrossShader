@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://alain.xyz/libraries/crossshader">
-    <img alt="Logo" src="docs/cover.jpg"/>
+    <img alt="Logo" src="docs/cover.png"/>
   </a>
 </p>
 <h1 align="center">
