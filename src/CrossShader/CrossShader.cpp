@@ -39,12 +39,6 @@ std::string compile(std::string source, InputOptions ioptions,
                  : 0) |
             EShMsgKeepUncalled | EShMsgSuppressWarnings);
 
-        if (inputFormat == ShaderFormat::HLSL)
-        {
-            shader.setEnvTargetHlslFunctionality1();
-            shader.setHlslIoMapping(true);
-        }
-
         shader.setAutoMapBindings(true);
         shader.setAutoMapLocations(true);
 
