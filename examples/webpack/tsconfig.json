@@ -1,31 +1,33 @@
 {
-    "compilerOptions": {
-      "target": "es5",
-      "lib": [
-        "es2017",
-        "es2017.object",
-        "es2017.sharedmemory",
-        "es2016",
-        "es2016.array.include",
-        "es2015",
-        "es2015.core",
-        "es2015.promise",
-        "es2015.collection",
-        "es5",
-        "dom"
-      ],
-      "module": "commonjs",
-      "declaration": false,
-      "noImplicitAny": false,
-      "suppressImplicitAnyIndexErrors": true,
-      "removeComments": false,
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "noEmitHelpers": false,
-      "sourceMap": true,
-      "strictNullChecks": true,
-      "jsx": "react"
-    },
-    "compileOnSave": false,
-    "buildOnSave": false
-  }
+  "compilerOptions": {
+    "target": "ES6",
+    "lib": [
+      "es2017",
+      "es2017.object",
+      "es2017.sharedmemory",
+      "es2016",
+      "es2016.array.include",
+      "es2015",
+      "es2015.core",
+      "es2015.promise",
+      "es2015.collection",
+      "es5",
+      "dom"
+    ],
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "removeComments": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmitHelpers": false,
+    "sourceMap": false,
+    "strictNullChecks": false,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "compileOnSave": false,
+  "buildOnSave": false
+}

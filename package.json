@@ -6,7 +6,7 @@
   "scripts": {
     "build": "cd wasm & & emcmake cmake .. & emmake make CrossShader -j",
     "start": "npm run build",
-    "test": "ava tests/test.js"
+    "test": "ava tests/test.ts"
   },
   "repository": {
     "type": "git",
@@ -33,11 +33,20 @@
     "url": "https://github.com/alaingalvan/crossshader/issues"
   },
   "homepage": "https://github.com/alaingalvan/crossshader#readme",
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register/transpile-only"
+    ]
+  },
   "devDependencies": {
-    "@types/node": "^14.0.x",
-    "ava": "^3.11.x",
-    "codecov": "^3.7.x",
+    "@types/node": "^14.14.x",
+    "ava": "^3.15.x",
+    "codecov": "^3.8.x",
     "coveralls": "^3.1.x",
-    "nyc": "^15.1.x"
+    "nyc": "^15.1.x",
+    "ts-node": "^9.1.1"
   }
 }

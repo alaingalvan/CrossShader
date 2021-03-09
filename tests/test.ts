@@ -1,5 +1,5 @@
-let { default: xsdr } = require('../cross-shader.js');
-let { default: test } = require('ava');
+import xsdr from '../cross-shader.js';
+import test from 'ava';
 
 test('GLSL 450 to GLSL ES 100', async (t) => {
     await xsdr.then(({ compile, ShaderFormat, ShaderStage }) => {
