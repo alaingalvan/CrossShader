@@ -46,8 +46,9 @@ std::string compile(std::string source, InputOptions ioptions,
                                ? glslang::EShSourceHlsl
                                : glslang::EShSourceGlsl,
                            stage, glslang::EShClientVulkan, 100);
-        shader.setEnvTarget(glslang::EShTargetSpv, glslang::EShTargetSpv_1_3);
-        shader.setEnvClient(glslang::EShClientVulkan, glslang::EShTargetVulkan_1_1);
+        shader.setEnvTarget(glslang::EShTargetSpv, glslang::EShTargetSpv_1_5);
+        shader.setEnvClient(glslang::EShClientVulkan, glslang::EShTargetVulkan_1_2);
+        
         shader.parse(&builtInResources, inputFormat == ShaderFormat::HLSL ? 100 : ioptions.glslVersion, true, messages);
 
         glslang::SpvOptions spvOptions;

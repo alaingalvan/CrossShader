@@ -13,7 +13,7 @@
 [![Travis Tests][travis-img]][travis-url]
 [![devDependency Status][david-dev-img]][david-dev-url]
 
-A cross compiler for shader languages. Convert between **SPIR-V**, **GLSL / GLSL ES**, **HLSL**, **Metal Shader Language**, or older versions of a given language. Cross Shader wraps [glslang](https://github.com/KhronosGroup/glslang) and [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross/), exposing a simpler interface to transpile shaders. 
+A cross compiler for shader languages. Convert between **SPIR-V**, **GLSL / GLSL ES**, **HLSL**, **Metal Shader Language**, or older versions of a given language. Cross Shader wraps [glslang](https://github.com/KhronosGroup/glslang) and [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross/), exposing a simpler interface to transpile shaders.
 
 ## Installation
 
