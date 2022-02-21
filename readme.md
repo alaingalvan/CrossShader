@@ -6,14 +6,17 @@
 <h1 align="center">
   ⚔️ CrossShader
 </h1>
+<p align="center">
 
 [![Npm Package][npm-img]][npm-url]
 [![cmake-img]][cmake-url]
 [![License][license-img]][license-url]
 [![Travis Tests][travis-img]][travis-url]
-[![devDependency Status][david-dev-img]][david-dev-url]
+[![Dependency Status][deps-img]][deps-url]
 
-A cross compiler for shader languages. Convert between **SPIR-V**, **GLSL / GLSL ES**, **HLSL**, **Metal Shader Language**, or older versions of a given language. Cross Shader wraps [glslang](https://github.com/KhronosGroup/glslang) and [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross/), exposing a simpler interface to transpile shaders.
+</p>
+
+A cross compiler for shader languages. Convert between **SPIR-V**, **GLSL / GLSL ES**, **HLSL**, **Metal Shader Language**, or older versions of a given language. Cross Shader wraps [DirectX Shader Compiler](https://github.com/microsoft/DirectXShaderCompiler), [glslang](https://github.com/KhronosGroup/glslang), [Mozilla Naga](https://github.com/gfx-rs/naga) and [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross/), exposing a simpler interface to transpile shaders.
 
 ## Installation
 
@@ -22,8 +25,6 @@ A cross compiler for shader languages. Convert between **SPIR-V**, **GLSL / GLSL
 ```bash
 npm i cross-shader -S
 ```
-
-Note the use of `dash-case` vs `CamelCase` for the npm module name, this is to follow the JavaScript community's focus on making names that fit well with browser URLs.
 
 Using this module will require Node 8.x or above, or [a browser that supports WebAssembly](https://caniuse.com/#feat=wasm).
 
@@ -60,21 +61,21 @@ TypeScript types are included, refer to [`cross-shader.d.ts`](/cross-shader.d.ts
 Similar to other WebAssembly modules, importing the module gives you a promise to the compiled WebAssembly binary:
 
 ```js
-import xsdr from 'cross-shader';
+import xsdr from "cross-shader";
 
 xsdr.then(({ compile, ShaderFormat, ShaderStage }) => {
   const ioptions = {
     format: ShaderFormat.GLSL,
     stage: ShaderStage.Vertex,
     es: false,
-    glslVersion: 450
+    glslVersion: 450,
   };
 
   const ooptions = {
     format: ShaderFormat.GLSL,
     es: true,
-    glslVersion: 100
-  }
+    glslVersion: 100,
+  };
 
   let outputString = compile(inputString, ioptions, ooptions);
 });
@@ -135,18 +136,14 @@ From there we'll need to set up our build files. Be sure to have the following i
 Then type the following in your terminal from the repo folder:
 
 ```bash
-# 👷 Make a build folder
-mkdir build
-cd build
-
 # 🖼️ To build your Visual Studio solution on Windows x64
-cmake .. -A x64
+cmake . -B build/vs -A x64
 
 # 🍎 To build your XCode project on Mac OS
-cmake .. -G Xcode
+cmake .. -B build/xcode -G Xcode
 
 # 🐧 To build your MakeFile on Linux
-cmake ..
+cmake -B build/make ..
 
 # 🔨 Build on any platform:
 cmake --build .
@@ -166,9 +163,7 @@ sudo apt-get update
 sudo apt-get install cmake build-essential llvm
 
 # 🏃 Then run the following:
-mkdir wasm
-cd wasm
-emcmake cmake ..
+emcmake cmake . -B build/wasm
 emmake make CrossShader -j
 ```
 
@@ -181,13 +176,11 @@ CrossShader is licensed as either **MIT** or **Apache-2.0**, whichever you would
 [license-img]: https://img.shields.io/:license-mit-blue.svg?style=flat-square
 [license-url]: https://opensource.org/licenses/MIT
 [travis-img]: https://img.shields.io/travis/com/alaingalvan/crossshader.svg?style=flat-square
-[travis-url]:https://www.travis-ci.com/github/alaingalvan/crossshader
+[travis-url]: https://www.travis-ci.com/github/alaingalvan/crossshader
 [npm-img]: https://img.shields.io/npm/v/cross-shader.svg?style=flat-square
 [npm-url]: http://npm.im/cross-shader
 [npm-download-img]: https://img.shields.io/npm/dm/cross-shader.svg?style=flat-square
-[david-url]: https://david-dm.org/alaingalvan/crossshader
-[david-img]: https://david-dm.org/alaingalvan/crossshader.svg?style=flat-square
-[david-dev-url]: https://david-dm.org/alaingalvan/crossshader#info=devDependencies
-[david-dev-img]: https://david-dm.org/alaingalvan/crossshader/dev-status.svg?&style=flat-square
+[deps-url]: https://libraries.io/npm/cross-shader
+[deps-img]: https://img.shields.io/librariesio/release/npm/cross-shader?style=flat-square
 [codecov-img]: https://img.shields.io/codecov/c/github/alaingalvan/crossshader.svg?style=flat-square
 [codecov-url]: https://codecov.io/gh/alaingalvan/crossshader

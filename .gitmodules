@@ -4,3 +4,6 @@
 [submodule "external/spirv-cross"]
 	path = external/spirv-cross
 	url = https://github.com/khronosgroup/spirv-cross.git
+[submodule "external/directxshadercompiler"]
+	path = external/directxshadercompiler
+	url = https://github.com/microsoft/directxshadercompiler.git

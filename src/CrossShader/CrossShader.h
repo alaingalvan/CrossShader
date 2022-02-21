@@ -17,6 +17,8 @@
 #include "spirv_hlsl.hpp"
 #include "spirv_msl.hpp"
 
+#include "dxc/dxcapi.h"
+
 #include <string>
 #include <exception>
 #include <stdexcept>

@@ -40,6 +40,9 @@ add_subdirectory(external/glslang)
 add_subdirectory(external/spirv-cross)
 set_property(TARGET spirv-cross spirv-cross-core spirv-cross-cpp spirv-cross-glsl spirv-cross-hlsl spirv-cross-msl spirv-cross-reflect spirv-cross-util PROPERTY FOLDER "spirv")
 
+# DirectX Compiler
+add_subdirectory(external/directxshadercompiler)
+
 
 # =============================================================
 
