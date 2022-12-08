@@ -1,11 +1,4 @@
-enum EShaderFormat {
-	GLSL,
-	HLSL,
-	MSL,
-	SPIRV,
-	ShaderFormatMax,
-}
-
+enum EShaderFormat { }
 type ShaderFormat = {
 	GLSL: EShaderFormat,
 	HLSL: EShaderFormat,
@@ -14,15 +7,7 @@ type ShaderFormat = {
 	ShaderFormatMax: EShaderFormat
 }
 
-enum EShaderStage {
-	Vertex,
-	TessControl,
-	TessEvaluation,
-	Geometry,
-	Fragment,
-	Compute,
-}
-
+enum EShaderStage { }
 type ShaderStage = {
 	Vertex: EShaderStage,
 	TessControl: EShaderStage,
