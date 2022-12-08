@@ -6,7 +6,7 @@ enum EShaderFormat {
 	ShaderFormatMax,
 }
 
-export type ShaderFormat = {
+type ShaderFormat = {
 	GLSL: EShaderFormat,
 	HLSL: EShaderFormat,
 	MSL: EShaderFormat,
@@ -23,7 +23,7 @@ enum EShaderStage {
 	Compute,
 }
 
-export type ShaderStage = {
+type ShaderStage = {
 	Vertex: EShaderStage,
 	TessControl: EShaderStage,
 	TessEvaluation: EShaderStage,
@@ -32,7 +32,7 @@ export type ShaderStage = {
 	Compute: EShaderStage
 }
 
-export type InputOptions = {
+type InputOptions = {
 	// All
 	format: EShaderFormat;
 	stage: EShaderStage;
@@ -42,7 +42,7 @@ export type InputOptions = {
 	glslVersion?: number;
 };
 
-export type OutputOptions = {
+type OutputOptions = {
 	// All
 	format: EShaderFormat;
 
@@ -51,7 +51,7 @@ export type OutputOptions = {
 	glslVersion?: number;
 };
 
-export type compile = (inputString: string, ioptions: InputOptions, ooptions: OutputOptions) => string;
+type compile = (inputString: string, ioptions: InputOptions, ooptions: OutputOptions) => string;
 
 declare const compile_promise: Promise<{ compile: compile; ShaderFormat: ShaderFormat; ShaderStage: ShaderStage }>;
 
