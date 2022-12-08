@@ -1,39 +1,43 @@
-declare enum ShaderFormat {
-    GLSL,
-    HLSL,
-    MSL,
-    SPIRV,
-    ShaderFormatMax
+enum EShaderFormat { }
+type ShaderFormat = {
+	GLSL: EShaderFormat,
+	HLSL: EShaderFormat,
+	MSL: EShaderFormat,
+	SPIRV: EShaderFormat,
+	ShaderFormatMax: EShaderFormat
 }
 
-declare enum ShaderStage {
-    Vertex,
-    TessControl,
-    TessEvaluation,
-    Geometry,
-    Fragment,
-    Compute
+enum EShaderStage { }
+type ShaderStage = {
+	Vertex: EShaderStage,
+	TessControl: EShaderStage,
+	TessEvaluation: EShaderStage,
+	Geometry: EShaderStage,
+	Fragment: EShaderStage,
+	Compute: EShaderStage
 }
 
 type InputOptions = {
-    // All
-    format: ShaderFormat;
-    stage: ShaderStage;
+	// All
+	format: EShaderFormat;
+	stage: EShaderStage;
 
-    // ⚪ GLSL
-    es?: boolean;
-    glslVersion?: number;
+	// ⚪ GLSL
+	es?: boolean;
+	glslVersion?: number;
 };
 
 type OutputOptions = {
-    // All
-    format: ShaderFormat;
+	// All
+	format: EShaderFormat;
 
-    // ⚪ GLSL
-    es?: boolean;
-    glslVersion?: number;
+	// ⚪ GLSL
+	es?: boolean;
+	glslVersion?: number;
 };
 
 type compile = (inputString: string, ioptions: InputOptions, ooptions: OutputOptions) => string;
 
-export default Promise<{ compile: compile; ShaderFormat: ShaderFormat; ShaderStage: ShaderStage }>();
+declare const compile_promise: Promise<{ compile: compile; ShaderFormat: ShaderFormat; ShaderStage: ShaderStage }>;
+
+export default compile_promise;
