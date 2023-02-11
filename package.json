@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@types/node": "^14.14.x",
-    "ava": "^3.15.x",
+    "ava": "^5.2.x",
     "codecov": "^3.8.x",
     "coveralls": "^3.1.x",
     "nyc": "^15.1.x",
